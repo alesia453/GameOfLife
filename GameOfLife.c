@@ -57,16 +57,16 @@ void freespace( char **grid, int *n)
         free(grid[i]);
     free(grid);
 }
-int alive_neighbours(char **grid, int n, int m,int i, int j)
+void alive_neighbours(char **grid, int n, int m,int i, int j)
 {
-    int how_many=0;
+    int *how_many=0;
     for(i=1;i<n;i++)
         for(j=1;j<m;j++)
         {
             if((grid)[i-1][j]=='X' || (grid)[i][j+1]=='X' || (grid)[i+1][j]=='X' || (grid)[i][j-1]=='X') 
                 how_many++;
         }
-    return how_many;
+   // return how_many;
 }
 void new_gen(char **grid, int *n, int *m, char ***newgen)
 {
@@ -118,6 +118,7 @@ void swap_gen(char ***grid, char ***newgen)
     *grid=*newgen;
     *newgen=aux;
 }
+
 int main(int argc, char* argv[])
 {
     int i,j,*n,*m,*k,generation;
