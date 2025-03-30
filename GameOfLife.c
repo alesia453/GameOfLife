@@ -23,10 +23,12 @@ void reead(char **grid, int *n, int *m, int *k)
     for(i=0;i<bordern;i++)
         for(j=0;j<borderm;j++)
         {
-            (grid)[0][j]='?';
+            if(i==0 || i==bordern-1 || j==0 || j==borderm-1)
+            (grid)[i][j]='+';
+            /*(grid)[0][j]='?';
             (grid)[bordern-1][j]='?';
             (grid)[i][0]='?';
-            (grid)[i][borderm-1]='?';
+            (grid)[i][borderm-1]='?';*/
         }
     
     //citesc restul valorilor in interiorul borderului
@@ -34,47 +36,56 @@ void reead(char **grid, int *n, int *m, int *k)
     for(i=1;i<=*n;i++)
         for(j=1;j<=*m;j++)
     {   
-        fscanf(finput, " %c", &grid[i][j]);
+        fscanf(finput, " %c", (grid)[i][j]);
     }
     
 }
-void writee(char **grid, int *n, int *m)
+void writee(char **grid, int n, int m)
 {
     int i,j;
-    for(i=1;i<=*n;i++)
+    for(i=1;i<=n;i++)
     {
-        for(j=1;j<=*m;j++)
+        for(j=1;j<=m;j++)
             fprintf(foutput, "%c", grid[i][j]);
         fprintf(foutput,"\n");
     }
 }
 
-void freespace( char **grid, int *n)
+void freespace( char **grid, int n)
 {
     int i,bordern;
-    bordern=(*n)+2;
+    bordern=(n)+2;
     for(i=0;i<bordern;i++)
         free(grid[i]);
     free(grid);
 }
-int alive_neighbours(char **grid, int n, int m,int i, int j)
+int alive_neighbours(char **grid, int i, int j)
 {
     int how_many=0;
-    for(i=1;i<n;i++)
+    /*for(i=1;i<n;i++)
         for(j=1;j<m;j++)
         {
             if((grid)[i-1][j]=='X' || (grid)[i][j+1]=='X' || (grid)[i+1][j]=='X' || (grid)[i][j-1]=='X') 
                 how_many++;
         }
+                */
+    if(grid[i+1][j]=='X') how_many++;
+    if(grid[i-1][j]=='X') how_many++;
+    if(grid[i][j+1]=='X') how_many++;
+    if(grid[i][j-1]=='X') how_many++;
+    if(grid[i+1][j-1]=='X') how_many++;
+    if(grid[i-1][j+1]=='X') how_many++;
+    if(grid[i+1][j+1]=='X') how_many++;
+    if(grid[i-1][j-1]=='X') how_many++;
    return how_many;
 }
-void new_gen(char **grid, int *n, int *m, char ***newgen)
+void new_gen(char **grid, int n, int m, char ***newgen)
 {
     int i, j, alive;
     //aloc memorie pt noua generatie cu tot cu border
     int bordern, borderm;
-    bordern=(*n)+2;
-    borderm=(*m)+2;
+    bordern=(n)+2;
+    borderm=(m)+2;
 
     *newgen=(char**)malloc(bordern * sizeof(char*));
     for(i=0;i<bordern;i++)
@@ -85,16 +96,18 @@ void new_gen(char **grid, int *n, int *m, char ***newgen)
     for(i=0;i<bordern;i++)
         for(j=0;j<borderm;j++)
         {
-            (*newgen)[0][j]='?';
+            if(i==0 || i==bordern-1 || j==0 || j==borderm-1)
+            (*newgen)[i][j]='+';
+            /*(*newgen)[0][j]='?';
             (*newgen)[bordern-1][j]='?';
             (*newgen)[i][0]='?';
-            (*newgen)[i][borderm-1]='?';
+            (*newgen)[i][borderm-1]='?';*/
         }
     //parcurg veche generatie si salvez modificarile in noua generatie
-    for(i=1;i<=*n;i++)
-        for(j=1;j<=*m;j++)
+    for(i=1;i<=n;i++)
+        for(j=1;j<=m;j++)
         {
-            alive=alive_neighbours(grid,*n,*m,i,j);
+            alive=alive_neighbours(grid,i,j);
             if((grid)[i][j]=='X')
             {
                 if(alive<2) (*newgen)[i][j]='+';
@@ -123,6 +136,9 @@ int main(int argc, char* argv[])
 {
     int i,j,*n,*m,*k,generation;
     char **grid,**newgen;
+    n=(int*)malloc(sizeof(int));
+    m=(int*)malloc(sizeof(int));
+    k=(int*)malloc(sizeof(int));
     for(i=1;i<argc;i++)
     {
         finput=fopen(argv[i],"r");
@@ -142,13 +158,15 @@ int main(int argc, char* argv[])
     //writee(grid,n,m);
         for(generation=0;generation<*k;generation++)
             {
-                new_gen(grid,n,m,&newgen);
-                writee(newgen,n,m);
+                new_gen(grid,*n,*m,&newgen);
+                writee(newgen,*n,*m);
                 swap_gen(&grid,&newgen);
+                freespace(newgen,*n);
             }
 
-    freespace(grid,n);
-    freespace(newgen,n);
+    freespace(grid,*n);
+    //freespace(newgen,*n);
+    free(n); free(m); free(k);
 
     fclose(finput); 
     fclose(foutput);
