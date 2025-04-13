@@ -12,8 +12,8 @@
   <line>Command: /mnt/c/facultate/Anul 1/Sem 2/PA/gameoflife/a.out /mnt/c/facultate/Anul 1/Sem 2/PA/gameoflife/InputData/data8.in /mnt/c/facultate/Anul 1/Sem 2/PA/gameoflife/OutputData/data8.out</line>
 </preamble>
 
-<pid>38016</pid>
-<ppid>37962</ppid>
+<pid>38915</pid>
+<ppid>38866</ppid>
 <tool>memcheck</tool>
 
 <args>
@@ -32,7 +32,7 @@
 
 <status>
   <state>RUNNING</state>
-  <time>00:00:00:00.141 </time>
+  <time>00:00:00:00.091 </time>
 </status>
 
 <error>
@@ -304,7 +304,7 @@
 
 <status>
   <state>FINISHED</state>
-  <time>00:00:00:00.981 </time>
+  <time>00:00:00:01.068 </time>
 </status>
 
 <errorcounts>
