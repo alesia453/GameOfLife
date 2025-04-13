@@ -1,0 +1,13 @@
+SRC = GameOfLife.c 
+
+
+all:build
+
+build:
+    gcc -o $(SRC) -o a.out
+
+clean:
+    rm -f a.out
+
+run: 
+    ./a.out InputData/data*.in Outputdata/data*.out 
