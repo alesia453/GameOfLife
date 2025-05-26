@@ -16,7 +16,9 @@ Taskul 4: am creat un graf ale carui noduri sunt celulele vii din fiecare matric
 - gcc gameoflife.c
 - make clean
 - make
-- Datele de intrare se gasesc in folderul 'InputData'
+- Datele de intrare si de iesire se gasesc in folderul 'InputData'
+- Datele de referinta se gasesc in folderul 'RefData'
+
 
 
 
