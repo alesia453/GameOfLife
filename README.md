@@ -10,7 +10,7 @@ Taskul 3: am creat un arbore. fiecare arbore retine in nod o stiva de liste cu c
 
 Taskul 4: am creat un graf ale carui noduri sunt celulele vii din fiecare matrice afisata la taskul 3. am folosit functiile din task3 pentru a crea nodul. cu ajutorul matricei de adiacenta, am incercat sa o sortare topologica cu DFS ca sa aflu cel mai lung lant hamiltonian din graf
 
-Pt detalii: https://site-pa.netlify.app/proiecte/game_of_life/ 
+[Pt detalii](https://site-pa.netlify.app/proiecte/game_of_life/) 
 
 ## Cum se executa: 
 - gcc gameoflife.c
